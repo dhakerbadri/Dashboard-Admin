@@ -1,0 +1,94 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  
+  "employees": [
+    {
+      "firstName": "Walilouuu",
+      "lastName": "Belhan",
+      "email": "walid@mail.fr",
+      "date": "1925-06-15T23:00:00.000Z",
+      "gender": "",
+      "education": "Post Graduate",
+      "company": "Sony",
+      "experience": 9,
+      "package": 2,
+      "id": 2
+    },
+    {
+      "firstName": "Bilou",
+      "lastName": "Bilou",
+      "email": "Bolbol@mail.tn",
+      "date": "2023-06-07T23:00:00.000Z",
+      "gender": "",
+      "education": "Matric",
+      "company": "Angular",
+      "experience": 5,
+      "package": 1352,
+      "id": 4
+    },
+    {
+      "firstName": "Wal",
+      "lastName": "Belhan",
+      "email": "walid@mail.fr",
+      "date": "1925-06-15T23:00:00.000Z",
+      "gender": "",
+      "education": "Post Graduate",
+      "company": "Sony",
+      "experience": 4,
+      "package": 2,
+      "id": 5
+    },
+    {
+      "firstName": "Islem",
+      "lastName": "Hamzi",
+      "email": "islem.hamzi@lulu.tn",
+      "date": "2023-06-08T23:00:00.000Z",
+      "gender": "",
+      "education": "Post Graduate",
+      "company": "Unity",
+      "experience": 3,
+      "package": 2000,
+      "id": 6
+    },
+    {
+      "firstName": "Timour",
+      "lastName": "Spridinov",
+      "email": "Timour.Spiridinov",
+      "date": "2002-07-03T23:00:00.000Z",
+      "gender": "male",
+      "education": "Post Graduate",
+      "company": "T",
+      "experience": 3,
+      "package": 3900,
+      "id": 8
+    },
+    {
+      "firstName": "Dhaker",
+      "lastName": "Badri",
+      "email": "dhaker.badri@gmail.com",
+      "date": "1998-11-30T23:00:00.000Z",
+      "gender": "",
+      "education": "Post Graduate",
+      "company": "STEPS",
+      "experience": 0,
+      "package": 3000,
+      "id": 9
+    }
+  ]
+}
