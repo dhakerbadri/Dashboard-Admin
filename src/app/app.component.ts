@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CoreService } from './core/core.service';
 import { FormControl } from '@angular/forms';
 import { count, filter } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -20,24 +22,6 @@ import { Chart, registerables } from 'chart.js';
 })
 export class AppComponent implements OnInit {
   FakeData = {
-    posts: [
-      {
-        id: 1,
-        title: 'json-server',
-        author: 'typicode',
-      },
-    ],
-    comments: [
-      {
-        id: 1,
-        body: 'some comment',
-        postId: 1,
-      },
-    ],
-    profile: {
-      name: 'typicode',
-    },
-
     employees: [
       {
         firstName: 'Walilouuu',
@@ -72,7 +56,7 @@ export class AppComponent implements OnInit {
         education: 'Post Graduate',
         company: 'Sony',
         experience: 4,
-        package: 2,
+        package: 200,
         id: 5,
       },
       {
@@ -146,7 +130,8 @@ export class AppComponent implements OnInit {
   constructor(
     private _dialog: MatDialog,
     private _empService: EmployeeService,
-    private _coreService: CoreService
+    private _coreService: CoreService,
+    private http: HttpClient
   ) {}
   nameFilter = new FormControl('');
 
@@ -154,21 +139,36 @@ export class AppComponent implements OnInit {
     firstName: '',
   };
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.http.get<any>('path/to/db.json').subscribe((res: any) => {
+      this.FakeData = { employees: res };
+      // Rest of your code
+    });
     this.getEmployeeList();
     this.dataSource = new MatTableDataSource(this.displayedColumns);
+
+    // Filter
     this.dataSource.filter = 'firstName';
     this.dataSource.filterPredicate = (data: any, filter: string): boolean =>
       data.firstName.toLowerCase().includes(filter);
+    const data = await this._empService.getEmployeeList();
+
+    // Data for the charts
+    let labels = this.FakeData.employees
+      .map((employee) => employee.experience + ' Years')
+      .reverse();
+    let dataEmp = this.FakeData.employees
+      .map((employee) => employee.package)
+      .reverse();
 
     new Chart('myChart', {
       type: 'bar',
       data: {
-        labels: this.FakeData.employees,
+        labels: labels,
         datasets: [
           {
-            label: 'of Years',
-            data: this.FakeData.employees,
+            label: 'Salary',
+            data: dataEmp,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -188,12 +188,6 @@ export class AppComponent implements OnInit {
             borderWidth: 1,
           },
         ],
-      },
-      options: {
-        parsing: {
-          xAxisKey: 'experience',
-          yAxisKey: 'package',
-        },
       },
     });
   }
@@ -239,7 +233,7 @@ export class AppComponent implements OnInit {
 
   getEmployeeList() {
     this._empService.getEmployeeList().subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (Array.isArray(res)) {
           this.dataSource = new MatTableDataSource(res);
           this.dataSource.sort = this.sort;
